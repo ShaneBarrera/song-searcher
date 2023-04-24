@@ -34,13 +34,28 @@ void TopFive::PrintTop5(string searchedWord)
     }
 }
 
-queue<TopFive::Song> TopFive::FindTop5(vector<Song>& allSongs) {
-/*
- priority_queue<pair<Song, int>> songsOrdered;
-    for (int i = 0; i < allSongs.size(); i++) {
-        songsOrdered.push(allSongs[i], getWordFequency(word));
-    }
-*/
+vector<TopFive::Song> TopFive::FindTop5Hash(vector<Song>& allSongs, string word) {
+    priority_queue<pair<Song, int>> songsOrderedHash;
+
+    for (int i = 0; i < allSongs.size(); i++)
+        songsOrderedHash.push(make_pair(allSongs[i], allSongs[i].wordMapHash.getWordFequency(word)));    
+
+    vector<pair<Song, int>> topFiveSongs;
+    for (int i = 0; i < 5; i++)
+        topFiveSongs.push_back(songsOrderedHash.top());
+
+}
+
+vector<TopFive::Song> TopFive::FindTop5Tree(vector<Song>& allSongs, string word) {
+    priority_queue<pair<Song, int>> songsOrderedTree;
+
+    for (int i = 0; i < allSongs.size(); i++)
+        songsOrderedTree.push(make_pair(allSongs[i], allSongs[i].wordMapHash.getWordFequency(word)));
+
+    vector<pair<Song, int>> topFiveSongs;
+    for (int i = 0; i < 5; i++)
+        topFiveSongs.push_back(songsOrderedTree.top());
+
 }
 
 
