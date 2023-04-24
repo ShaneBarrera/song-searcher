@@ -2,6 +2,7 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <vector>
 #include <unordered_map>
 #include "TreeMap.h"
 #include "HashMap.h"
@@ -14,17 +15,17 @@ class TopFive {
         string name;
         string artist;
         string lyrics;
-        Int streams; // from spotify if time allows
+        int streams; // from spotify if time allows
         HashMap wordMapHash;
         TreeMap wordMapTree;
-    };
+    }
 
     vector<Song> allSongs;
 
-Public:
-    void CreateMapsForSongs();
+public:
+    void CreateMapsForSongs(vector<Song> allSongs);
     vector<Song> FindTop5();
-    void PrintTop5();
+    void PrintTop5(string searchedWord);
     void insertWords(Song &song);
 };
 
