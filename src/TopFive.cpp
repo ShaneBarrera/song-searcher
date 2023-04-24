@@ -3,20 +3,22 @@
 
 void TopFive::insertWords(Song& song)
 {
-    string word;
-    istringstream stream(song.lyrics);
-    while (stream >> word)
-    {
-        transform(word.begin(), word.end(), word.begin(), ::tolower);
-        if (song.wordMapHash.find(word) == song.wordMapHash.end()) {
-            song.wordMapHash[word] = 1;
-        } 
-        else {
-            //  We will increment for the key to store the next word
-            song.wordMapHash[word]++;
-        }
+    TreeMap(song.lyrics);
+    HashMap(song.lyrics);
+    // string word;
+    // istringstream stream(song.lyrics);
+    // while (stream >> word)
+    // {
+    //     transform(word.begin(), word.end(), word.begin(), ::tolower);
+    //     if (song.wordMapHash.find(word) == song.wordMapHash.end()) {
+    //         song.wordMapHash[word] = 1;
+    //     } 
+    //     else {
+    //         //  We will increment for the key to store the next word
+    //         song.wordMapHash[word]++;
+    //     }
 
-        // For the RB tree, insert the current word
-        song.wordMapTree.Insert(word);
-    }
+    //     // For the RB tree, insert the current word
+    //     song.wordMapTree.Insert(song.lyrics);
+    // }
 }
