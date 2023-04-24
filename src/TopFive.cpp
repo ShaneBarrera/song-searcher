@@ -1,24 +1,33 @@
 #include "TopFive.h"
 #include <algorithm>
 
+void TopFive::CreateMapsForSongs(vector<Song> allSongs)
+{
+    for (auto& song : allSongs)
+    {
+        insertWords(song); //  The insertWords(song) function calls the constructor for both tree and hash
+    }
+}
+
+void TopFive::PrintTop5(string searchedWord) 
+{
+    vector<Song> topFive = FindTop5();
+    if (topFive.empty()) 
+    {
+        return;
+    }
+
+    cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
+    int rank = 1;
+        for (auto& song : topFive) {
+            cout << rank << ". \"" << song.name << "\" " << song.wordMapHash.getWordFrequency(searchedWord)
+            << " " << song.streams << endl;
+            ++rank;
+    }
+}
+
 void TopFive::insertWords(Song& song)
 {
     TreeMap(song.lyrics);
     HashMap(song.lyrics);
-    // string word;
-    // istringstream stream(song.lyrics);
-    // while (stream >> word)
-    // {
-    //     transform(word.begin(), word.end(), word.begin(), ::tolower);
-    //     if (song.wordMapHash.find(word) == song.wordMapHash.end()) {
-    //         song.wordMapHash[word] = 1;
-    //     } 
-    //     else {
-    //         //  We will increment for the key to store the next word
-    //         song.wordMapHash[word]++;
-    //     }
-
-    //     // For the RB tree, insert the current word
-    //     song.wordMapTree.Insert(song.lyrics);
-    // }
 }
