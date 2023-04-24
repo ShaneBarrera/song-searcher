@@ -20,6 +20,7 @@ class TreeMap {
     };
     Node* root;
     Node* HelperInsertBSTRecursive(Node* helpRoot, string& word, Node* newNodePointer);
+    Node* HelperGetNumUses(Node* helpRoot, const string& word);
 public:
     TreeMap(const string& lyrics = "This is a sample lyric string");
     // need right rotate, left rotate, reverse colors
@@ -29,6 +30,7 @@ public:
     //insert function
     void Insert(string& word);
     //search function?
+    int GetNumUses(const string& word);
 
     //extra functions
     Node* GetRoot();
