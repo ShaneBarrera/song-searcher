@@ -27,6 +27,8 @@ public:
     void CreateMapsForSongs(vector<Song> allSongs);
     vector<Song> FindTop5Hash(vector<Song>& allSongs, string word);
     vector<Song> FindTop5Tree(vector<Song>& allSongs, string word);
-    void PrintTop5(string searchedWord);
-    void insertWords(Song& song);
+    void PrintTop5Hash(string searchedWord);
+    void PrintTop5Tree(string searchedWord);
+    void insertWordsHash(Song& song);
+    void insertWordsTree(Song& song);
 };
