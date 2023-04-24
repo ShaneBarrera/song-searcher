@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <list>
+#include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -27,10 +29,14 @@ private:
 
 public:
     // constructor
-    HashMap(string key) {
-        HashNode* node = new HashNode(key);
-        int index = hashFunction(key);
-        table[index].push_back(node);
+    HashMap(string lyrics) {
+        istringstream stream(lyrics);
+        string word;
+        while (stream >> word) {
+            // make word lowercase
+            transform(word.begin(), word.end(), word.begin(), ::tolower);
+            insertHashNode(word);
+        }
     }
 
     // destrcutor
