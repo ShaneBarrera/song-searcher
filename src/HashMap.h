@@ -78,4 +78,18 @@ public:
             }
         }
     }
+
+    // return word frequency
+    int getWordFequency(string word) {
+        int index = hashFunction(word);
+
+        // iterate over each element in list at the index
+        for (auto& node : table[index]) {
+
+            // return the value of the word
+            if (node->key == word)
+                return node->value;
+        }
+        return -1;
+    }
 };
