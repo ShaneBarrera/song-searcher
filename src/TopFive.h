@@ -25,7 +25,8 @@ class TopFive {
 
 public:
     void CreateMapsForSongs(vector<Song> allSongs);
-    queue<Song> FindTop5(vector<Song>& allSongs);
+    vector<Song> FindTop5Hash(vector<Song>& allSongs, string word);
+    vector<Song> FindTop5Tree(vector<Song>& allSongs, string word);
     void PrintTop5(string searchedWord);
     void insertWords(Song& song);
 };
