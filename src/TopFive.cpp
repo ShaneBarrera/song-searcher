@@ -1,5 +1,6 @@
 #include "TopFive.h"
 #include <algorithm>
+#include 
 
 void TopFive::CreateMapsForSongs(vector<Song> allSongs)
 {
@@ -11,7 +12,7 @@ void TopFive::CreateMapsForSongs(vector<Song> allSongs)
 
 void TopFive::PrintTop5(string searchedWord) 
 {
-    vector<Song> topFive = FindTop5();
+    vector<Song> topFive = FindTop5(); //  Haven't created the FindTop5() function yet
     if (topFive.empty()) 
     {
         return;
@@ -20,10 +21,18 @@ void TopFive::PrintTop5(string searchedWord)
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
         for (auto& song : topFive) {
-            cout << rank << ". \"" << song.name << "\" " << song.wordMapHash.getWordFrequency(searchedWord)
+            cout << rank << ". \"" << song.name << "\" " << song.wordMapHash.getWordFequency(searchedWord)
             << " " << song.streams << endl;
             ++rank;
-    }
+        }
+    
+    cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
+    int rank = 1;
+        for (auto& song : topFive) {
+            cout << rank << ". \"" << song.name << "\" " << song.wordMapTree.GetNumUses(searchedWord)
+            << " " << song.streams << endl;
+            ++rank;
+        }
 }
 
 void TopFive::insertWords(Song& song)
