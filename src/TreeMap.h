@@ -1,10 +1,14 @@
+//
+// Created by Alex on 4/19/23.
+//
+
 #pragma once
 #include <string>
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 class TreeMap {
-    
     struct Node {
         string word;
         int numUses;
@@ -14,17 +18,19 @@ class TreeMap {
         Node* right;
         Node(string& x) : word(x), numUses(1), black(false), parent(nullptr), left(nullptr), right(nullptr) {};
     };
-
+    Node* root;
+    Node* HelperInsertBSTRecursive(Node* helpRoot, string& word, Node* newNodePointer);
 public:
-    ///constructor should use insert a bunch? like go through lyric string and insert each one?
-    TreeMap();
-    TreeMap(string& lyrics);
+    TreeMap(const string& lyrics = "This is a sample lyric string");
     // need right rotate, left rotate, reverse colors
     Node* RightRotate(Node* parent);
     Node* LeftRotate(Node* parent);
     void Recolor(Node* node);
     //insert function
-    void Insert(string& word); /// will I already know numUses, or should it just increase on a hit for insertion? leaning toward second
+    void Insert(string& word);
     //search function?
-};
 
+    //extra functions
+    Node* GetRoot();
+    void PrintInorder(Node* helpRoot);
+};
