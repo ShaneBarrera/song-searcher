@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <vector>
 #include "TreeMap.h"
 #include "HashMap.h"
 
@@ -18,14 +19,16 @@ class TopFive {
         int streams; // from spotify if time allows
         HashMap wordMapHash;
         TreeMap wordMapTree;
+        vector<Song> allSongs;
     }
 
-    vector<Song> allSongs;
+    
 
 public:
-    void CreateMapsForSongs(vector<Song> allSongs);
+
     vector<Song> FindTop5();
     void PrintTop5(string searchedWord);
     void insertWords(Song &song);
+    void CreateMapsForSongs(vector<Song> allSongs);
 };
 
