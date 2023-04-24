@@ -2,9 +2,13 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <unordered_map>
+#include "TreeMap.h"
+#include "HashMap.h"
+
 using namespace std;
 
-class Top5 {
+class TopFive {
 
     struct Song {
         string name;
@@ -21,5 +25,6 @@ Public:
     void CreateMapsForSongs();
     vector<Song> FindTop5();
     void PrintTop5();
+    void insertWords(Song &song);
 };
 
