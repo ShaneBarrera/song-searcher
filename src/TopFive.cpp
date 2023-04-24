@@ -35,7 +35,12 @@ void TopFive::PrintTop5(string searchedWord)
 }
 
 queue<TopFive::Song> TopFive::FindTop5(vector<Song>& allSongs) {
-
+/*
+ priority_queue<pair<Song, int>> songsOrdered;
+    for (int i = 0; i < allSongs.size(); i++) {
+        songsOrdered.push(allSongs[i], getWordFequency(word));
+    }
+*/
 }
 
 
