@@ -21,7 +21,7 @@ void TopFive::PrintTop5Hash(string searchedWord)
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
         for (auto& song : topFive) {
-            cout << rank << ". \"" << song.name << "\" " << song.wordMapHash.getWordFequency(searchedWord)
+            cout << rank << ". \"" << song.name << "\" " << song.wordMapHash.getWordFrequency(searchedWord)
             << " " << song.streams << endl;
             ++rank;
         }
@@ -58,7 +58,7 @@ vector<TopFive::Song> TopFive::FindTop5Hash(vector<Song>& allSongs, string word)
     priority_queue<pair<Song, int>> songsOrderedHash;
 
     for (int i = 0; i < allSongs.size(); i++)
-        songsOrderedHash.push(make_pair(allSongs[i], allSongs[i].wordMapHash.getWordFequency(word)));    
+        songsOrderedHash.push(make_pair(allSongs[i], allSongs[i].wordMapHash.getWordFrequency(word)));    
 
     vector<pair<Song, int>> topFiveSongs;
     for (int i = 0; i < 5; i++)
@@ -70,7 +70,7 @@ vector<TopFive::Song> TopFive::FindTop5Tree(vector<Song>& allSongs, string word)
     priority_queue<pair<Song, int>> songsOrderedTree;
 
     for (int i = 0; i < allSongs.size(); i++)
-        songsOrderedTree.push(make_pair(allSongs[i], allSongs[i].wordMapHash.getWordFequency(word)));
+        songsOrderedTree.push(make_pair(allSongs[i], allSongs[i].wordMapHash.getWordFrequency(word)));
 
     vector<pair<Song, int>> topFiveSongs;
     for (int i = 0; i < 5; i++)
