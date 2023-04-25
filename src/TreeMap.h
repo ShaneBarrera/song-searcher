@@ -19,13 +19,16 @@ class TreeMap {
         Node(string& x) : word(x), numUses(1), black(false), parent(nullptr), left(nullptr), right(nullptr) {};
     };
     Node* root;
-    Node* HelperInsertBSTRecursive(Node* helpRoot, string& word, Node* newNodePointer);
-    Node* HelperGetNumUses(Node* helpRoot, const string& word);
+    Node* HelperInsertBSTRecursive(Node* helpRoot, string& word);
+    Node* HelperGetNode(Node* helpRoot, const string& word);
+    void FixRB(Node* node);
 public:
     TreeMap(const string& lyrics = "This is a sample lyric string");
     // need right rotate, left rotate, reverse colors
-    Node* RightRotate(Node* parent);
-    Node* LeftRotate(Node* parent);
+//    Node* RightRotate(Node* parent);
+//    Node* LeftRotate(Node* parent);
+    void RightRotate(Node* node);
+    void LeftRotate(Node* node);
     void Recolor(Node* node);
     //insert function
     void Insert(string& word);
