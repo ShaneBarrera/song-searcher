@@ -1,5 +1,4 @@
 #include "TopFive.h"
-#include <algorithm>
 
 void TopFive::CreateMapsForSongs(vector<Song> allSongs)
 {
@@ -10,38 +9,38 @@ void TopFive::CreateMapsForSongs(vector<Song> allSongs)
     }
 }
 
-void TopFive::PrintTop5Hash(string searchedWord) 
+void TopFive::PrintTop5Hash(string searchedWord)
 {
-    vector<Song> topFive = FindTop5Hash(allSongs, searchedWord); //  Haven't created the FindTop5() function yet
-    if (topFive.empty()) 
+    vector<pair<int, Song>> topFive = FindTop5Hash(allSongs, searchedWord);
+    if (topFive.empty())
     {
         return;
     }
 
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
-        for (auto& song : topFive) {
-            cout << rank << ". \"" << song.name << "\" " << song.wordMapHash.getWordFrequency(searchedWord)
-            << " " << song.streams << endl;
-            ++rank;
-        }
+    for (auto& song : topFive) {
+        cout << rank << ". \"" << song.second.name << "\" " << song.first
+             << " " << song.second.streams << endl;
+        ++rank;
+    }
 }
 
-void TopFive::PrintTop5Tree(string searchedWord) 
+void TopFive::PrintTop5Tree(string searchedWord)
 {
-    vector<Song> topFive = FindTop5Tree(allSongs, searchedWord); //  Haven't created the FindTop5() function yet
-    if (topFive.empty()) 
+    vector<pair<int, Song>> topFive = FindTop5Tree(allSongs, searchedWord);
+    if (topFive.empty())
     {
         return;
     }
 
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
-        for (auto& song : topFive) {
-            cout << rank << ". \"" << song.name << "\" " << song.wordMapTree.GetNumUses(searchedWord)
-            << " " << song.streams << endl;
-            ++rank;
-        }
+    for (auto& song : topFive) {
+        cout << rank << ". \"" << song.second.name << "\" " << song.first
+             << " " << song.second.streams << endl;
+        ++rank;
+    }
 }
 
 void TopFive::insertWordsHash(Song& song)
@@ -54,33 +53,32 @@ void TopFive::insertWordsTree(Song& song)
     TreeMap(song.lyrics);
 }
 
-vector<TopFive::Song> TopFive::FindTop5Hash(vector<Song>& allSongs, string word) {
-    priority_queue<pair<Song, int>> songsOrderedHash;
+vector<pair<int, TopFive::Song>> TopFive::FindTop5Hash(vector<Song>& allSongs, string word) {
+    priority_queue<pair<int, Song>> songsOrderedHash;
 
-    for (int i = 0; i < allSongs.size(); i++)
-        songsOrderedHash.push(make_pair(allSongs[i], allSongs[i].wordMapHash.getWordFrequency(word)));    
+    for (unsigned int i = 0; i < allSongs.size(); i++)
+        songsOrderedHash.push(make_pair(allSongs[i].wordMapHash.getWordFrequency(word), allSongs[i]));
 
-    vector<pair<Song, int>> topFiveSongs;
-    for (int i = 0; i < 5; i++)
+    vector<pair<int, Song>> topFiveSongs;
+    for (int i = 0; i < 5 && !songsOrderedHash.empty(); i++) {
         topFiveSongs.push_back(songsOrderedHash.top());
-
+        songsOrderedHash.pop();
+    }
+    return topFiveSongs;
 }
 
-vector<TopFive::Song> TopFive::FindTop5Tree(vector<Song>& allSongs, string word) {
-    priority_queue<pair<Song, int>> songsOrderedTree;
+
+vector<pair<int, TopFive::Song>> TopFive::FindTop5Tree(vector<Song>& allSongs, string word) {
+    priority_queue<pair<int, Song>> songsOrderedTree;
 
     for (int i = 0; i < allSongs.size(); i++)
-        songsOrderedTree.push(make_pair(allSongs[i], allSongs[i].wordMapHash.getWordFrequency(word)));
+        songsOrderedTree.push(make_pair(allSongs[i].wordMapTree.GetNumUses(word), allSongs[i]));
 
-    vector<pair<Song, int>> topFiveSongs;
-    for (int i = 0; i < 5; i++)
+    vector<pair<int, Song>> topFiveSongs;
+    for (int i = 0; i < 5 && !songsOrderedTree.empty(); i++) {
         topFiveSongs.push_back(songsOrderedTree.top());
-
+        songsOrderedTree.pop();
+    }
+    return topFiveSongs;
 }
 
-//vect or sorted map
-//add them to a vector
-//sort
-//return top 5
-//keep track of the name of the word is for the number
-//Maybe an ordered map? or a max

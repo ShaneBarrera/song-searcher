@@ -5,13 +5,14 @@
 #include <vector>
 #include <unordered_map>
 #include <queue>
+#include <algorithm>
 #include "TreeMap.h"
 #include "HashMap.h"
 
 using namespace std;
 
 class TopFive {
-
+public:
     struct Song {
         string name;
         string artist;
@@ -19,16 +20,20 @@ class TopFive {
         int streams; // from spotify if time allows
         HashMap wordMapHash;
         TreeMap wordMapTree;
+        bool operator<(const Song& other) const {
+            return this->streams < other.streams;
+        };
     };
 
     vector<Song> allSongs;
 
-public:
     void CreateMapsForSongs(vector<Song> allSongs);
-    vector<Song> FindTop5Hash(vector<Song>& allSongs, string word);
-    vector<Song> FindTop5Tree(vector<Song>& allSongs, string word);
+    vector<pair<int, Song>> FindTop5Hash(vector<Song>& allSongs, string word);
+    vector<pair<int, Song>> FindTop5Tree(vector<Song>& allSongs, string word);
     void PrintTop5Hash(string searchedWord);
     void PrintTop5Tree(string searchedWord);
+
+private:
     void insertWordsHash(Song& song);
     void insertWordsTree(Song& song);
 };
