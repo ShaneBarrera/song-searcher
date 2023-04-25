@@ -16,11 +16,11 @@ using namespace std;
 
 int main()
 {
-    string sample = "This is an example with example is a multiple copies of this word";
-    cout << sample << endl;
-    TreeMap map = TreeMap(sample);
-    map.PrintInorder(map.GetRoot());
-    cout << map.GetNumUses("this") << endl;
+//    string sample = "This is an example with example is a multiple copies of this word";
+//    cout << sample << endl;
+//    TreeMap map = TreeMap(sample);
+//    map.PrintInorder(map.GetRoot());
+//    cout << map.GetNumUses("this") << endl;
 
     bridges::Bridges bridges("exla", "1255981382944");
 
@@ -42,24 +42,23 @@ int main()
 
     TopFive top5 = TopFive();
 
+    cout<< songs[0].getLyrics() << endl;
+    TopFive::Song s(songs[0].getSongTitle(), songs[0].getArtist(), songs[0].getLyrics());
+//    top5.allSongs.push_back(s);
+
+
     // loop through the songs and print their titles
     for (bridges::dataset::Song song : songs) {
-        cout<< song.getLyrics() << endl;
-//        TopFive::Song s(song.getSongTitle(), song.getArtist(), song.getLyrics());
-//        top5.allSongs.push_back(s);
+        TopFive::Song s(song.getSongTitle(), song.getArtist(), song.getLyrics());
+        top5.allSongs.push_back(s);
     }
 
-//    for (auto song : top5.allSongs) {
-//        cout << song.name << endl;
-//    }
+    //print the num uses (using the tree) of the word "happy" in each song
+    for (auto song : top5.allSongs) {
+        cout << song.name << " uses the word happy : "<< song.wordMapTree.GetNumUses("happy") << endl;
+    }
 
-
-//    bridges::Song song("Hello", "Adele", "25");
-
-
-
-//    CURL* curl = curl_easy_init();
-//    curl_easy_setopt(curl, CURLOPT_URL, "http://bridges-music.herokuapp.com/bridges_music_server");
+    top5.PrintTop5Tree("happy");
 
     // TreeMap songTree(132);
     // unordered_map<string, int> frequency;

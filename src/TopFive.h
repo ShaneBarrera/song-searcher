@@ -27,8 +27,8 @@ public:
             this->name = name;
             this->artist = artist;
             this->lyrics = lyrics;
-            wordMapHash = HashMap(lyrics);
-            wordMapTree = TreeMap(lyrics);
+//            wordMapHash = HashMap(lyrics);
+            wordMapTree = TreeMap(this->lyrics);
         }
     };
 

@@ -4,20 +4,28 @@
 
 #include "TreeMap.h"
 
-TreeMap::TreeMap(const string& lyrics) {
+TreeMap::TreeMap(string lyrics) {
     root = nullptr;
+
+    // Replace all punctuation with spaces
+    //FIXME: breaks up contractions? maybe ignore this, or tell it to ignore single characters?
+    for (auto& c : lyrics) {
+        if (std::ispunct(c)) {
+            c = ' ';
+        }
+    }
+
     // insert each word in lyrics
     istringstream stream(lyrics);
     string word;
     while (stream >> word) {
+        /// make word lowercase
+        transform(word.begin(), word.end(), word.begin(), ::tolower);
         Insert(word);
     }
 }
 
 void TreeMap::Insert(std::string &word) {
-    /// make word lowercase
-    transform(word.begin(), word.end(), word.begin(), ::tolower);
-
     /// use BST insert first
     // traverse to location
     // if I find it, increase numUses
@@ -158,6 +166,10 @@ TreeMap::Node *TreeMap::HelperInsertBSTRecursive(Node* helpRoot, string& word) {
 
 int TreeMap::GetNumUses(const std::string &word) {
     Node* foundNode = HelperGetNode(root, word);
+    if (foundNode == nullptr){
+        return 0;
+    }
+
     return foundNode->numUses;
 }
 
@@ -193,49 +205,43 @@ void TreeMap::PrintInorder(Node* helpRoot) {
 }
 
 void TreeMap::RightRotate(TreeMap::Node *node) {
-    Node* y = node->left;
-    node->left = y->right;
-    if (y->right != nullptr){
+    if (node->left != nullptr) {
+        Node *y = node->left;
+        node->left = y->right;
+        if (y->right != nullptr) {
+            y->right = node;
+        }
+        y->parent = node->parent;
+        if (node->parent == nullptr) {
+            root = y;
+        } else if (node == node->parent->left) {
+            node->parent->left = y;
+        } else {
+            node->parent->right = y;
+        }
         y->right = node;
+        node->parent = y;
     }
-    y->parent = node->parent;
-    if (node->parent == nullptr)
-    {
-        root = y;
-    }
-    else if (node == node->parent->left)
-    {
-        node->parent->left = y;
-    }
-    else
-    {
-        node->parent->right = y;
-    }
-    y->right = node;
-    node->parent = y;
 }
 
 void TreeMap::LeftRotate(TreeMap::Node *node) {
-    Node* y = node->right;
-    node->right = y->left;
-    if (y->left != nullptr){
+    if (node->right != nullptr) {
+        Node *y = node->right;
+        node->right = y->left;
+        if (y->left != nullptr) {
+            y->left = node;
+        }
+        y->parent = node->parent;
+        if (node->parent == nullptr) {
+            root = y;
+        } else if (node == node->parent->right) {
+            node->parent->right = y;
+        } else {
+            node->parent->left = y;
+        }
         y->left = node;
+        node->parent = y;
     }
-    y->parent = node->parent;
-    if (node->parent == nullptr)
-    {
-        root = y;
-    }
-    else if (node == node->parent->right)
-    {
-        node->parent->right = y;
-    }
-    else
-    {
-        node->parent->left = y;
-    }
-    y->left = node;
-    node->parent = y;
 }
 
 void TreeMap::Recolor(TreeMap::Node *node) {

@@ -20,8 +20,9 @@ void TopFive::PrintTop5Hash(string searchedWord)
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
     for (auto& song : topFive) {
-        cout << rank << ". \"" << song.second.name << "\" " << song.first
-             << " " << song.second.streams << endl;
+        cout << rank << ". \"" << song.second.name << "\" " << song.first;
+        /// next line would print streams
+//             << " " << song.second.streams << endl;
         ++rank;
     }
 }
@@ -37,8 +38,9 @@ void TopFive::PrintTop5Tree(string searchedWord)
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
     for (auto& song : topFive) {
-        cout << rank << ". \"" << song.second.name << "\" " << song.first
-             << " " << song.second.streams << endl;
+        cout << rank << ". \"" << song.second.name << "\" " << song.first << endl;
+        /// next line would print streams
+//             << " " << song.second.streams << endl;
         ++rank;
     }
 }

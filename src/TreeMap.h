@@ -24,10 +24,8 @@ class TreeMap {
     Node* HelperGetNode(Node* helpRoot, const string& word);
     void FixRB(Node* node);
 public:
-    TreeMap(const string& lyrics = "This is a sample lyric string");
+    TreeMap(string lyrics = "This is a sample lyric string");
     // need right rotate, left rotate, reverse colors
-//    Node* RightRotate(Node* parent);
-//    Node* LeftRotate(Node* parent);
     void RightRotate(Node* node);
     void LeftRotate(Node* node);
     void Recolor(Node* node);
@@ -35,7 +33,6 @@ public:
     void Insert(string& word);
     //search function?
     int GetNumUses(const string& word);
-
     //extra functions
     Node* GetRoot();
     void PrintInorder(Node* helpRoot);

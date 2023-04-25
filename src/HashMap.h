@@ -60,6 +60,14 @@ private:
 public:
     // constructor
     HashMap(string lyrics = "") {
+        // Replace all punctuation with spaces
+        //FIXME: breaks up contractions? maybe ignore this, or tell it to ignore single characters?
+        for (auto& c : lyrics) {
+            if (std::ispunct(c)) {
+                c = ' ';
+            }
+        }
+
         istringstream stream(lyrics);
         string word;
         while (stream >> word) {
