@@ -59,7 +59,7 @@ private:
 
 public:
     // constructor
-    HashMap(string lyrics) {
+    HashMap(string lyrics = "") {
         istringstream stream(lyrics);
         string word;
         while (stream >> word) {
