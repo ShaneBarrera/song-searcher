@@ -1,14 +1,5 @@
 #include "TopFive.h"
 
-//void TopFive::CreateMapsForSongs(vector<Song> allSongs)
-//{
-//    for (auto& song : allSongs)
-//    {
-//        insertWordsHash(song); //  The insertWords(song) function calls the constructor for both tree and hash
-//        insertWordsTree(song);
-//    }
-//}
-
 void TopFive::PrintTop5Hash(string searchedWord)
 {
     vector<pair<int, Song>> topFive = FindTop5Hash(allSongs, searchedWord);
@@ -45,16 +36,6 @@ void TopFive::PrintTop5Tree(string searchedWord)
     }
 }
 
-//void TopFive::insertWordsHash(Song& song)
-//{
-//    song.wordMapHash = HashMap(song.lyrics);
-//}
-//
-//void TopFive::insertWordsTree(Song& song)
-//{
-//    song.wordMapTree = TreeMap(song.lyrics);
-//}
-
 vector<pair<int, TopFive::Song>> TopFive::FindTop5Hash(vector<Song>& allSongs, string word) {
     priority_queue<pair<int, Song>> songsOrderedHash;
 
@@ -68,7 +49,6 @@ vector<pair<int, TopFive::Song>> TopFive::FindTop5Hash(vector<Song>& allSongs, s
     }
     return topFiveSongs;
 }
-
 
 vector<pair<int, TopFive::Song>> TopFive::FindTop5Tree(vector<Song>& allSongs, string word) {
     priority_queue<pair<int, Song>> songsOrderedTree;
