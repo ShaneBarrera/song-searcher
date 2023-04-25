@@ -35,7 +35,7 @@ private:
     }
 
     // insert hash node into hash map
-    HashMap insertHashNode(string word) {
+    void insertHashNode(string word) {
         int index = hashFunction(word);
         bool found = false;
 
@@ -80,7 +80,7 @@ public:
     }
 
     // return word frequency
-    int getWordFequency(string word) {
+    int getWordFrequency(string word) {
         int index = hashFunction(word);
 
         // iterate over each element in list at the index
