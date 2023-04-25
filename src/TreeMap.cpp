@@ -238,28 +238,6 @@ void TreeMap::LeftRotate(TreeMap::Node *node) {
     node->parent = y;
 }
 
-//TreeMap::Node* TreeMap::RightRotate(TreeMap::Node *parent) {
-//    Node* temp = nullptr;
-//    Node* child = parent->left;
-//
-//    temp = child->right;
-//    child->right = parent;
-//    parent->left = temp;
-//
-//    return child;
-//}
-//
-//TreeMap::Node* TreeMap::LeftRotate(TreeMap::Node *parent) {
-//    Node* temp = nullptr;
-//    Node* child = parent->right;
-//
-//    temp = child->left;
-//    child->left = parent;
-//    parent->right = temp;
-//
-//    return child;
-//}
-
 void TreeMap::Recolor(TreeMap::Node *node) {
     node->black = !node->black;
 }
