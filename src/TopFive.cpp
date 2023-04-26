@@ -11,10 +11,8 @@ void TopFive::PrintTop5Hash(string searchedWord)
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
     for (auto& song : topFive) {
-        cout << rank << ". \"" << song.second.name << "\" " << song.first << endl;
-        /// next line would print streams
-//             << " " << song.second.streams << endl;
-        ++rank;
+        cout << rank << ". \"" << song.second.name << "\" by " << song.second.artist << " (" << song.first << ")\n";
+        ++rank; //  Increment to find the next song frequency
     }
 }
 
@@ -29,12 +27,11 @@ void TopFive::PrintTop5Tree(string searchedWord)
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
     for (auto& song : topFive) {
-        cout << rank << ". \"" << song.second.name << "\" " << song.first << endl;
-        /// next line would print streams
-//             << " " << song.second.streams << endl;
-        ++rank;
+        cout << rank << ". \"" << song.second.name << "\" by " << song.second.artist << " (" << song.first << ")\n";
+        ++rank; //  Increment to find the next song frequency
     }
 }
+
 
 vector<pair<int, TopFive::Song>> TopFive::FindTop5Hash(vector<Song>& allSongs, string word) {
     priority_queue<pair<int, Song>> songsOrderedHash;
