@@ -39,6 +39,7 @@ private:
         int index = hashFunction(word);
         bool found = false;
 
+
         if (table[index] != nullptr) {
             HashNode* current = table[index];
             while (current != nullptr) {
@@ -47,9 +48,10 @@ private:
                     found = true;
                     break;
                 }
+                current = current->next;
             }
         }
-        
+
         if (!found) {
             HashNode* node = new HashNode(word);
             node->next = table[index];
@@ -71,7 +73,7 @@ public:
 
         // replace all punctuation with spaces
         for (auto& c : lyrics) {
-            if (std::ispunct(c)) {
+            if (std::ispunct(c) || !isalpha(c)) {
                 c = ' ';
             }
         }
@@ -99,6 +101,7 @@ public:
                 found = true;
                 return current->value;
             }
+            current = current->next;
         }
 
         if (!false)
