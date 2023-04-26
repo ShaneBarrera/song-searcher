@@ -169,6 +169,7 @@ TreeMap::Node *TreeMap::HelperInsertBSTRecursive(Node* helpRoot, string& word) {
     return helpRoot;
 }
 
+//O(log n)
 int TreeMap::GetNumUses(const std::string &word) {
     Node* foundNode = HelperGetNode(root, word);
     if (foundNode == nullptr){
