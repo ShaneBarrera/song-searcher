@@ -39,8 +39,10 @@ void TopFive::PrintTop5Tree(string searchedWord)
 vector<pair<int, TopFive::Song>> TopFive::FindTop5Hash(vector<Song>& allSongs, string word) {
     priority_queue<pair<int, Song>> songsOrderedHash;
 
-    for (unsigned int i = 0; i < allSongs.size(); i++)
+    for (unsigned int i = 0; i < allSongs.size(); i++) {
         songsOrderedHash.push(make_pair(allSongs[i].wordMapHash.getWordFrequency(word), allSongs[i]));
+        allSongs[i].wordMapHash.clear();
+    }
 
     vector<pair<int, Song>> topFiveSongs;
     for (int i = 0; i < 5 && !songsOrderedHash.empty(); i++) {
@@ -67,6 +69,6 @@ vector<pair<int, TopFive::Song>> TopFive::FindTop5Tree(vector<Song>& allSongs, s
 void TopFive::DestroyEverything() {
     for (auto song : allSongs) {
         song.wordMapTree.HelperDestruct(song.wordMapTree.GetRoot());
-        song.wordMapHash.DestroyNodes();
+        //song.wordMapHash.DestroyNodes();
     }
 }
