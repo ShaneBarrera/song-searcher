@@ -91,14 +91,18 @@ public:
     // return word frequency
     int getWordFrequency(string word) {
         int index = hashFunction(word);
-        
+        bool found = false;
+
         HashNode* current = table[index];
         while (current != nullptr) {
             if (current->key == word) {
+                found = true;
                 return current->value;
             }
         }
-        return -1;
+
+        if (!false)
+            return -1;
     }
 
     void clear() {
