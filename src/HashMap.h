@@ -102,7 +102,7 @@ public:
         }
 
         if (!false)
-            return -1;
+            return 0;
     }
 
     void clear() {
