@@ -9,14 +9,14 @@ using namespace std;
 
 class HashMap {
     // hash node nested struct
-    struct HashNode { 
+    struct HashNode {
         string key;
         int value;
         HashNode* next;
 
         // constructor for hash node
-        HashNode(string word){
-            word = key;
+        HashNode(string word) {
+            key = word;
             value = 1;
             next = nullptr;
         }
@@ -24,13 +24,13 @@ class HashMap {
 
 private:
     // HashMap with 1000 spots in the list
-    list<HashNode*> table[1000];
+    HashNode* table[1000] = { nullptr };
 
     // hash function that returns powers of 31 with ASCII 
     unsigned int hashFunction(string key) {
         unsigned int hashValue = 0;
         for (int i = key.size() - 1; i >= 0; i--)
-            hashValue += key[i] * pow(31,i);
+            hashValue += key[i] * pow(31, i);
         return hashValue % 1000;
     }
 
@@ -38,28 +38,33 @@ private:
     void insertHashNode(string word) {
         int index = hashFunction(word);
         bool found = false;
-
+        
         // iterate over each element in list at the index
-        // seperate chaining method
-        for (auto& node : table[index]) {
+        HashNode* node = table[index];
+        while (node != nullptr) {
             // increase the value of the word if found
             if (node->key == word) {
                 node->value++;
                 found = true;
                 break;
             }
+            node = node->next;
         }
 
         // add node to hash map if it does not exist yet
         if (!found) {
-            HashNode* node = new HashNode(word);
-            table[index].push_back(node);
+            node = new HashNode(word);
+            node->next = table[index];
+            table[index] = node;
         }
     }
 
 public:
+    // default constructor
+    HashMap() { string lyrics = ""; }
+
     // constructor
-    HashMap(string lyrics = "") {
+    HashMap(string lyrics) {
         // Replace all punctuation with spaces
         //FIXME: breaks up contractions? maybe ignore this, or tell it to ignore single characters?
         for (auto& c : lyrics) {
@@ -77,21 +82,15 @@ public:
         }
     }
 
-//    // destrcutor
-//    ~HashMap() {
-//        // loop through table and iterate through each bucket list
-//        for (int i = 0; i < 1000; i++) {
-//            for (auto& node : table[i]) {
-//                delete node;
-//            }
-//        }
-//    }
-
-    void DestroyNodes() {
+    // destrcutor
+    ~HashMap() {
         // loop through table and iterate through each bucket list
         for (int i = 0; i < 1000; i++) {
-            for (auto& node : table[i]) {
+            HashNode* node = table[i];
+            while (node != nullptr) {
+                HashNode* next = node->next;
                 delete node;
+                node = next;
             }
         }
     }
@@ -100,12 +99,13 @@ public:
     int getWordFrequency(string word) {
         int index = hashFunction(word);
 
-        // iterate over each element in list at the index
-        for (auto& node : table[index]) {
-
+        // iterate over the linked list at the index
+        HashNode* node = table[index];
+        while (node != nullptr) {
             // return the value of the word
             if (node->key == word)
                 return node->value;
+            node = node->next;
         }
         return -1;
     }
