@@ -41,7 +41,7 @@ vector<pair<int, TopFive::Song>> TopFive::FindTop5Hash(vector<Song>& allSongs, s
 
     for (unsigned int i = 0; i < allSongs.size(); i++) {
         songsOrderedHash.push(make_pair(allSongs[i].wordMapHash.getWordFrequency(word), allSongs[i]));
-        allSongs[i].wordMapHash.clear();
+//        allSongs[i].wordMapHash.clear();
     }
 
     vector<pair<int, Song>> topFiveSongs;
@@ -69,6 +69,6 @@ vector<pair<int, TopFive::Song>> TopFive::FindTop5Tree(vector<Song>& allSongs, s
 void TopFive::DestroyEverything() {
     for (auto song : allSongs) {
         song.wordMapTree.HelperDestruct(song.wordMapTree.GetRoot());
-        //song.wordMapHash.DestroyNodes();
+        song.wordMapHash.clear();
     }
 }
