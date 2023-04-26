@@ -36,9 +36,6 @@ int main()
         TopFive::Song s = TopFive::Song(song.getSongTitle(), song.getArtist(), song.getLyrics());
         top5.allSongs.push_back(s);
     }
-    
-    TopFive::Song x = TopFive::Song("Sample Song", "Sample artist", "yo yo yo my sample lyrics are super happy");
-    top5.allSongs.push_back(x);
 
     string input;
     bool isWord = false;

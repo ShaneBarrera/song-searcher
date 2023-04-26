@@ -82,7 +82,6 @@ public:
             // make word lowercase
             transform(word.begin(), word.end(), word.begin(), ::tolower);
             insertHashNode(word);
-            cout << word << endl;
         }
     }
 
