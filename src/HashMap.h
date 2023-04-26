@@ -9,29 +9,29 @@ using namespace std;
 
 class HashMap {
     // hash node nested struct
-    struct HashNode { 
+    struct HashNode {
         string key;
         int value;
         HashNode* next;
 
         // constructor for hash node
-        HashNode(string word){
-            word = key;
+        HashNode(string word) {
+            key = word;
             value = 1;
             next = nullptr;
         }
     };
 
 private:
-    // HashMap with 1000 spots in the list
-    list<HashNode*> table[1000];
+    // HashMap with 100 spots in the list
+    HashNode** table = new HashNode* [100];
 
     // hash function that returns powers of 31 with ASCII 
     unsigned int hashFunction(string key) {
         unsigned int hashValue = 0;
         for (int i = key.size() - 1; i >= 0; i--)
-            hashValue += key[i] * pow(31,i);
-        return hashValue % 1000;
+            hashValue += key[i] * pow(31, i);
+        return hashValue % 100;
     }
 
     // insert hash node into hash map
@@ -39,29 +39,37 @@ private:
         int index = hashFunction(word);
         bool found = false;
 
-        // iterate over each element in list at the index
-        // seperate chaining method
-        for (auto& node : table[index]) {
-            // increase the value of the word if found
-            if (node->key == word) {
-                node->value++;
-                found = true;
-                break;
+        if (table[index] != nullptr) {
+            HashNode* current = table[index];
+            while (current != nullptr) {
+                if (current->key == word) {
+                    current->value++;
+                    found = true;
+                    break;
+                }
             }
         }
-
-        // add node to hash map if it does not exist yet
+        
         if (!found) {
             HashNode* node = new HashNode(word);
-            table[index].push_back(node);
+            node->next = table[index];
+            table[index] = node;
         }
     }
 
 public:
+    // default constructor
+    HashMap() { 
+        string lyrics = "";
+    }
+
     // constructor
-    HashMap(string lyrics = "") {
-        // Replace all punctuation with spaces
-        //FIXME: breaks up contractions? maybe ignore this, or tell it to ignore single characters?
+    HashMap(string lyrics) {
+        for (int i = 0; i < 100; i++) {
+            table[i] = nullptr;
+        }
+
+        // replace all punctuation with spaces
         for (auto& c : lyrics) {
             if (std::ispunct(c)) {
                 c = ' ';
@@ -77,36 +85,38 @@ public:
         }
     }
 
-//    // destrcutor
-//    ~HashMap() {
-//        // loop through table and iterate through each bucket list
-//        for (int i = 0; i < 1000; i++) {
-//            for (auto& node : table[i]) {
-//                delete node;
-//            }
-//        }
-//    }
-
-    void DestroyNodes() {
-        // loop through table and iterate through each bucket list
-        for (int i = 0; i < 1000; i++) {
-            for (auto& node : table[i]) {
-                delete node;
-            }
-        }
-    }
+    // destrcutor
+    ~HashMap() { }
 
     // return word frequency
     int getWordFrequency(string word) {
         int index = hashFunction(word);
+        bool found = false;
 
-        // iterate over each element in list at the index
-        for (auto& node : table[index]) {
-
-            // return the value of the word
-            if (node->key == word)
-                return node->value;
+        HashNode* current = table[index];
+        while (current != nullptr) {
+            if (current->key == word) {
+                found = true;
+                return current->value;
+            }
         }
-        return -1;
+
+        if (!false)
+            return 0;
+    }
+
+    void clear() {
+        // delete each node in the table
+        for (int i = 0; i < 100; i++) {
+            HashNode* current = table[i];
+            while (current != nullptr) {
+                HashNode* temp = current;
+                current = current->next;
+                delete temp;
+            }
+        }
+
+        // delete the table
+        delete[] table;
     }
 };
