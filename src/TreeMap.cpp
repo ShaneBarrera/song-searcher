@@ -4,6 +4,7 @@
 
 #include "TreeMap.h"
 
+// O(n log n) where n is number of unique words
 TreeMap::TreeMap(string lyrics) {
     root = nullptr;
 
@@ -21,19 +22,21 @@ TreeMap::TreeMap(string lyrics) {
     while (stream >> word) {
         /// make word lowercase
         transform(word.begin(), word.end(), word.begin(), ::tolower);
-        Insert(word);
+        Insert(word); //o(logn)
     }
 }
 
+//O(log n) because of combination of parts
 void TreeMap::Insert(std::string &word) {
     /// use BST insert first
     // traverse to location
     // if I find it, increase numUses
     // else insert word as a new node
 
+    // o(logn) where n is number of nodes/unique words
     root = HelperInsertBSTRecursive(root, word);
 
-    //find newnode
+    //find newnode o(log n)
     Node* node = HelperGetNode(root, word);
 
     //if not a new node, end here
@@ -41,9 +44,11 @@ void TreeMap::Insert(std::string &word) {
         return;
     }
 
+    //o(1)
     FixRB(node);
 }
 
+//O(1) (there are a max of two rotations, which is constant)
 void TreeMap::FixRB(TreeMap::Node *node) {
     if (node == root){
         return;
@@ -173,6 +178,7 @@ int TreeMap::GetNumUses(const std::string &word) {
     return foundNode->numUses;
 }
 
+//O(log n)
 TreeMap::Node* TreeMap::HelperGetNode(TreeMap::Node *helpRoot, const std::string &word) {
     if (helpRoot == nullptr || helpRoot->word == word)
     {
@@ -188,10 +194,12 @@ TreeMap::Node* TreeMap::HelperGetNode(TreeMap::Node *helpRoot, const std::string
     }
 }
 
+//o(1)
 TreeMap::Node* TreeMap::GetRoot() {
     return root;
 }
 
+//o(n), not used, just for testing
 void TreeMap::PrintInorder(Node* helpRoot) {
     if (helpRoot->left != nullptr)
     {
@@ -204,6 +212,7 @@ void TreeMap::PrintInorder(Node* helpRoot) {
     }
 }
 
+//O(1)
 void TreeMap::RightRotate(TreeMap::Node *node) {
     if (node->left != nullptr) {
         Node *y = node->left;
@@ -224,6 +233,7 @@ void TreeMap::RightRotate(TreeMap::Node *node) {
     }
 }
 
+//O(1)
 void TreeMap::LeftRotate(TreeMap::Node *node) {
     if (node->right != nullptr) {
         Node *y = node->right;
@@ -244,6 +254,26 @@ void TreeMap::LeftRotate(TreeMap::Node *node) {
     }
 }
 
+//O(1)
 void TreeMap::Recolor(TreeMap::Node *node) {
     node->black = !node->black;
+}
+
+//destructor
+//TreeMap::~TreeMap() {
+//    HelperDestruct(root);
+//}
+//
+// Helper function to recursively destroy and delete nodes
+void TreeMap::HelperDestruct(TreeMap::Node *helpRoot) {
+    if (helpRoot != nullptr)
+    {
+        if (helpRoot->left != nullptr) {
+            HelperDestruct(helpRoot->left);
+        }
+        if (helpRoot->right != nullptr) {
+            HelperDestruct(helpRoot->right);
+        }
+        delete helpRoot;
+    }
 }

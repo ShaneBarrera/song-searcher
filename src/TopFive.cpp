@@ -11,7 +11,7 @@ void TopFive::PrintTop5Hash(string searchedWord)
     cout << "\"" << searchedWord << "\" appears in the following songs most frequently:\n";
     int rank = 1;
     for (auto& song : topFive) {
-        cout << rank << ". \"" << song.second.name << "\" " << song.first;
+        cout << rank << ". \"" << song.second.name << "\" " << song.first << endl;
         /// next line would print streams
 //             << " " << song.second.streams << endl;
         ++rank;
@@ -64,3 +64,9 @@ vector<pair<int, TopFive::Song>> TopFive::FindTop5Tree(vector<Song>& allSongs, s
     return topFiveSongs;
 }
 
+void TopFive::DestroyEverything() {
+    for (auto song : allSongs) {
+        song.wordMapTree.HelperDestruct(song.wordMapTree.GetRoot());
+        song.wordMapHash.DestroyNodes();
+    }
+}

@@ -8,8 +8,6 @@
 #include <DataSource.h>
 #include "TreeMap.h"
 #include "TopFive.h"
-
-//#include <curl/curl.h>
 #include "Bridges.h"
 #include "Song.h"
 using namespace std;
@@ -35,13 +33,20 @@ int main()
 
     /// for all songs in the dataset make TopFive::Song objects for them, also add them to the allSongs vector
     for (bridges::dataset::Song song : songs) {
-        TopFive::Song s(song.getSongTitle(), song.getArtist(), song.getLyrics());
+        TopFive::Song s = TopFive::Song(song.getSongTitle(), song.getArtist(), song.getLyrics());
         top5.allSongs.push_back(s);
     }
+
+    TopFive::Song x = TopFive::Song("Sample Song", "Sample artist", "yo yo yo my sample lyrics are super happy");
+    top5.allSongs.push_back(x);
+
 
     ///use tree to print the top 5 songs with word "happy"
     cout << "Using the red-black tree..." << endl;
     top5.PrintTop5Tree("happy");
+
+    cout << "Using the hash..." << endl;
+    top5.PrintTop5Hash("happy");
 
 
 ///old stuff, probably needs to be cleaned up or deleted?
@@ -98,6 +103,8 @@ int main()
     //         rank++;
     //     }
     // }
+
+    top5.DestroyEverything();
 
     return 0;
 }

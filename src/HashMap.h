@@ -77,8 +77,17 @@ public:
         }
     }
 
-    // destrcutor
-    ~HashMap() {
+//    // destrcutor
+//    ~HashMap() {
+//        // loop through table and iterate through each bucket list
+//        for (int i = 0; i < 1000; i++) {
+//            for (auto& node : table[i]) {
+//                delete node;
+//            }
+//        }
+//    }
+
+    void DestroyNodes() {
         // loop through table and iterate through each bucket list
         for (int i = 0; i < 1000; i++) {
             for (auto& node : table[i]) {

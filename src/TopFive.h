@@ -28,8 +28,8 @@ public:
             this->artist = artist;
             this->lyrics = lyrics;
             //FIXME: hash is still broken
-//            wordMapHash = HashMap(this->lyrics);
-            wordMapTree = TreeMap(this->lyrics);
+            this->wordMapHash = HashMap(this->lyrics);
+            this->wordMapTree = TreeMap(this->lyrics);
         }
     };
 
@@ -39,6 +39,8 @@ public:
     vector<pair<int, Song>> FindTop5Tree(vector<Song>& allSongs, string word);
     void PrintTop5Hash(string searchedWord);
     void PrintTop5Tree(string searchedWord);
+
+    void DestroyEverything();
 
 private:
 };
