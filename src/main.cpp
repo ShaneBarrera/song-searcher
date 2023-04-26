@@ -46,6 +46,7 @@ int main()
             cout << "Enter a word to search song lyrics for (or enter \"exit\" to quit): " << endl;
             getline(cin, input);
             if (input == "exit") {
+                top5.DestroyEverything();
                 return 0; // Exit program
             }
             if (!input.empty() && all_of(input.begin(), input.end(), ::isalpha)) {
@@ -59,12 +60,15 @@ int main()
         cout << "Using the red-black tree..." << endl;
         top5.PrintTop5Tree(input);
 
+        cout << endl;
+
         cout << "Using the hash..." << endl;
         top5.PrintTop5Hash(input);
 
+        cout << endl;
+
         // Reset for next iteration
         isWord = false;
-        top5.DestroyEverything();
     }
     return 0;
 }
