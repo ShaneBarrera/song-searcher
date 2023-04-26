@@ -40,24 +40,31 @@ int main()
     string input;
     bool isWord = false;
     
-    while (!isWord) {
-        cout << "Enter a word to search song lyrics for: " << endl;
-        getline(cin, input);
-        if (!input.empty() && (input.begin(), input.end(), ::isalpha)) {
-            isWord = true;
+    while (true) {
+        // Prompt user for word input
+        while (!isWord) {
+            cout << "Enter a word to search song lyrics for (or enter \"exit\" to quit): " << endl;
+            getline(cin, input);
+            if (input == "exit") {
+                return 0; // Exit program
+            }
+            if (!input.empty() && all_of(input.begin(), input.end(), ::isalpha)) {
+                isWord = true;
+            }
+            else {
+                cout << "Invalid input. Please enter another word with no spaces!" << endl;
+            }
         }
-        else {
-            cout << "Invalid input. Please enter another word with no spaces!" << endl;
-        }
+        
+        cout << "Using the red-black tree..." << endl;
+        top5.PrintTop5Tree(input);
+
+        cout << "Using the hash..." << endl;
+        top5.PrintTop5Hash(input);
+
+        // Reset for next iteration
+        isWord = false;
+        top5.DestroyEverything();
     }
-    
-    //use tree to print the top 5 songs with word "happy"
-    cout << "Using the red-black tree..." << endl;
-    top5.PrintTop5Tree(input);
-
-    cout << "Using the hash..." << endl;
-    top5.PrintTop5Hash(input);
-    top5.DestroyEverything();
-
     return 0;
 }
