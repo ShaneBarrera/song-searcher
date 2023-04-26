@@ -23,16 +23,15 @@ class HashMap {
     };
 
 private:
-    // HashMap with 1000 spots in the list
-    int tableSize = 1000;
-    HashNode** table = new HashNode * [tableSize];
+    // HashMap with 100 spots in the list
+    HashNode** table = new HashNode* [100];
 
     // hash function that returns powers of 31 with ASCII 
     unsigned int hashFunction(string key) {
         unsigned int hashValue = 0;
         for (int i = key.size() - 1; i >= 0; i--)
             hashValue += key[i] * pow(31, i);
-        return hashValue % 1000;
+        return hashValue % 100;
     }
 
     // insert hash node into hash map
@@ -60,11 +59,13 @@ private:
 
 public:
     // default constructor
-    HashMap() { string lyrics = ""; }
+    HashMap() { 
+        string lyrics = "";
+    }
 
     // constructor
     HashMap(string lyrics) {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             table[i] = nullptr;
         }
 
@@ -102,8 +103,8 @@ public:
 
     void clear() {
         // delete each node in the table
-        HashNode* current = table[0];
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
+            HashNode* current = table[i];
             while (current != nullptr) {
                 HashNode* temp = current;
                 current = current->next;
