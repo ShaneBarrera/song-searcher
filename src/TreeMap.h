@@ -25,7 +25,6 @@ class TreeMap {
     void FixRB(Node* node);
 public:
     TreeMap(string lyrics = "This is a sample lyric string");
-//    ~TreeMap();
     void HelperDestruct(Node* helpRoot);
     // need right rotate, left rotate, reverse colors
     void RightRotate(Node* node);

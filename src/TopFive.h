@@ -27,20 +27,15 @@ public:
             this->name = name;
             this->artist = artist;
             this->lyrics = lyrics;
-            //FIXME: hash is still broken
             this->wordMapHash = HashMap(this->lyrics);
             this->wordMapTree = TreeMap(this->lyrics);
         }
     };
-
     vector<Song> allSongs;
 
     vector<pair<int, Song>> FindTop5Hash(vector<Song>& allSongs, string word);
     vector<pair<int, Song>> FindTop5Tree(vector<Song>& allSongs, string word);
     void PrintTop5Hash(string searchedWord);
     void PrintTop5Tree(string searchedWord);
-
     void DestroyEverything();
-
-private:
 };

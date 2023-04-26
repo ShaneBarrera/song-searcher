@@ -9,7 +9,6 @@ TreeMap::TreeMap(string lyrics) {
     root = nullptr;
 
     // Replace all punctuation with spaces
-    //FIXME: breaks up contractions? maybe ignore this, or tell it to ignore single characters?
     for (auto& c : lyrics) {
         if (std::ispunct(c) || !isalpha(c)) {
             c = ' ';
@@ -260,11 +259,6 @@ void TreeMap::Recolor(TreeMap::Node *node) {
     node->black = !node->black;
 }
 
-//destructor
-//TreeMap::~TreeMap() {
-//    HelperDestruct(root);
-//}
-//
 // Helper function to recursively destroy and delete nodes
 void TreeMap::HelperDestruct(TreeMap::Node *helpRoot) {
     if (helpRoot != nullptr)
