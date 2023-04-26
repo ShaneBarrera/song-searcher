@@ -22,16 +22,15 @@ class HashMap {
         }
     };
 
-private:
-    // HashMap with 100 spots in the list
-    HashNode** table = new HashNode* [100];
+    // HashMap with 1000 spots in the list
+    HashNode** table = new HashNode* [1000];
 
     // hash function that returns powers of 31 with ASCII 
     unsigned int hashFunction(string key) {
         unsigned int hashValue = 0;
         for (int i = key.size() - 1; i >= 0; i--)
             hashValue += key[i] * pow(31, i);
-        return hashValue % 100;
+        return hashValue % 1000;
     }
 
     // insert hash node into hash map
@@ -39,7 +38,7 @@ private:
         int index = hashFunction(word);
         bool found = false;
 
-
+        // loop through chain at table[index]
         if (table[index] != nullptr) {
             HashNode* current = table[index];
             while (current != nullptr) {
@@ -51,7 +50,8 @@ private:
                 current = current->next;
             }
         }
-
+        
+        // add new node if it does not exist in hash map
         if (!found) {
             HashNode* node = new HashNode(word);
             node->next = table[index];
@@ -61,17 +61,15 @@ private:
 
 public:
     // default constructor
-    HashMap() { 
-        string lyrics = "";
-    }
+    HashMap() { string lyrics = ""; }
 
     // constructor
     HashMap(string lyrics) {
-        for (int i = 0; i < 100; i++) {
+        // set all indices to nullptr when map is created
+        for (int i = 0; i < 1000; i++)
             table[i] = nullptr;
-        }
-
-        // replace all punctuation with spaces
+        
+        // replace all punctuation and numbers with spaces
         for (auto& c : lyrics) {
             if (std::ispunct(c) || !isalpha(c)) {
                 c = ' ';
@@ -84,10 +82,11 @@ public:
             // make word lowercase
             transform(word.begin(), word.end(), word.begin(), ::tolower);
             insertHashNode(word);
+            cout << word << endl;
         }
     }
 
-    // destrcutor
+    // destructor
     ~HashMap() { }
 
     // return word frequency
@@ -99,18 +98,20 @@ public:
         while (current != nullptr) {
             if (current->key == word) {
                 found = true;
+                // return word frequency
                 return current->value;
             }
             current = current->next;
         }
 
+        // if word is not in song, return 0
         if (!false)
             return 0;
     }
 
     void clear() {
         // delete each node in the table
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             HashNode* current = table[i];
             while (current != nullptr) {
                 HashNode* temp = current;
