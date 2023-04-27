@@ -26,11 +26,6 @@ int main()
     //  Construct an instance of our TopFive class
     TopFive top5 = TopFive();
 
-    //  TESTING (uncomment if you want to see how it works)
-    //  Try printing lyrics and constructing a TopFive::Song object for a single Song from dataset
-    //cout<< songs[0].getLyrics() << endl;
-    //TopFive::Song s(songs[0].getSongTitle(), songs[0].getArtist(), songs[0].getLyrics());
-
     //  For all songs in the dataset make TopFive::Song objects for them, also add them to the allSongs vector
     for (bridges::dataset::Song song : songs) {
         TopFive::Song s = TopFive::Song(song.getSongTitle(), song.getArtist(), song.getLyrics());
